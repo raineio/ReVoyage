@@ -1,0 +1,12 @@
+{
+  "Author": "Raine",
+  "Name": "ReVoyage",
+  "Punchline": "Voyages are pain to deal with.",
+  "Tags": [
+    "crafting",
+    "voyages",
+    "housing"
+  ],
+  "RepoUrl": "https://github.com/raineio/ReVoyage",
+  "LoadPriority":  0
+}
