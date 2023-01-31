@@ -1,5 +1,6 @@
 ﻿using Dalamud;
 using Dalamud.Plugin;
+using System;
 
 namespace ReVoyage
 {
@@ -12,11 +13,18 @@ namespace ReVoyage
         public ReVoyage(DalamudPluginInterface pluginInterface)
         {
             _dalamudPluginInterface = pluginInterface;
+
+            Main();
+        }
+
+        private static void Main()
+        {
+            Console.WriteLine("Hello, World from ReVoyage!");
         }
 
         public void Dispose()
         {
-            throw new System.NotImplementedException();
+            throw new NotImplementedException();
         }
     }
 }
