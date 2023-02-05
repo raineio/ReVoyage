@@ -30,10 +30,6 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <None Include="Models\VoyageStruct.cs" />
-	</ItemGroup>
-
-	<ItemGroup>
 		<Reference Include="FFXIVClientStructs">
 			<HintPath>$(DalamudLibPath)FFXIVClientStructs.dll</HintPath>
 			<Private>false</Private>
