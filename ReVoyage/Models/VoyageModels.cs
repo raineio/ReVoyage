@@ -1,8 +1,10 @@
 ﻿using Dalamud.Utility.Signatures;
+using System;
+using System.Reflection.Metadata.Ecma335;
 
 namespace ReVoyage.Models
 {
-    public unsafe class VoyageSigs
+    public unsafe class VoyageModels
     {
         [Signature("E8 ?? ?? ?? ?? 8B 44 24 50 0F B7 D5")]
         public delegate* unmanaged<byte, byte, short, int*, int*, int> GetAirshipVoyageTimeAndDistanceDelegate = null!;
@@ -19,7 +21,7 @@ namespace ReVoyage.Models
         [Signature("E8 ?? ?? ?? ?? 01 43 10 8B CD")]
         public delegate* unmanaged<byte, short, uint> GetSubmarineSurveyDurationDelegate = null!;
 
-        public VoyageSigs() => SignatureHelper.Initialise(this);
+        public VoyageModels() => SignatureHelper.Initialise(this);
 
         public void GetAirshipVoyageTimeAndDistance(byte a, byte b, short speed, out uint time, out uint distance)
         {

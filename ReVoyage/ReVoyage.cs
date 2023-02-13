@@ -5,6 +5,7 @@ using System;
 using Dalamud.Game.Command;
 using ReVoyage.UI;
 using Dalamud.Interface.Windowing;
+using Dalamud.IoC;
 
 namespace ReVoyage
 {
@@ -12,29 +13,32 @@ namespace ReVoyage
     {
         public string Name => "ReVoyage";
 
-        private readonly DalamudPluginInterface _dalamudPluginInterface;
-        private readonly CommandManager _commandManager;
+        private DalamudPluginInterface _dalamudPluginInterface;
 
         private readonly WindowSystem _windowSystem;
+        private VoyageInfoWindow _voyageInfoWindow;
 
-        private Config _config;
-        private ConfigUI _configUI;
-
-        public ReVoyage(DalamudPluginInterface pluginInterface, Config config)
+        public ReVoyage(DalamudPluginInterface pluginInterface)
         {
             _dalamudPluginInterface = pluginInterface;
-            _config = config;
 
-            _commandManager.AddHandler("/voyage", new CommandInfo(this.OnChat)
+            _dalamudPluginInterface.Create<Services>();
+
+            Services.config = _dalamudPluginInterface.GetPluginConfig() as Config ?? new Config();
+
+            Services.commandManager.AddHandler("/voyage", new CommandInfo(OnChat)
             {
-                HelpMessage = "",
+                HelpMessage = "Opens the config window for ReVoyage",
                 ShowInHelp = true
             });
 
-            this._configUI = new();
-            this._windowSystem = new("ReVoyage");
+            _voyageInfoWindow = new();
+            _windowSystem = new("ReVoyage");
+            _windowSystem.AddWindow(_voyageInfoWindow);
 
-            Main();
+            _dalamudPluginInterface.UiBuilder.Draw += _windowSystem.Draw;
+
+            // _dalamudPluginInterface.UiBuilder.
         }
 
         private static void Main()
@@ -42,14 +46,16 @@ namespace ReVoyage
             PluginLog.Log("Hello, World from ReVoyage!");
         }
 
-        private void OnChat()
+        private void OnChat(string command, string arguments)
         {
-            this._configUI.Toggle();
+            PluginLog.LogDebug("Going to toggle UI");
+            _voyageInfoWindow.Toggle();
+            PluginLog.LogDebug("Toggled UI");
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            PluginLog.LogDebug("is not implemented :D");
         }
     }
 }
